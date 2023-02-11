@@ -1,0 +1,30 @@
+<html lang="" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<Title>Sign up</title>
+
+<link rel="stylesheet" href="/css/register.css">
+   
+<link rel="shortcut icon" href="favicon.png" >
+
+</head>
+
+	<body>
+
+
+		<div class="row">
+
+            <form method="post" action="/users/signup">
+      			<h1>Sign up</h1>                
+ 					<input name="Name" th:name="name" type="text" id="contactName" placeholder="Name" value="" minLength="2" required />
+	      			<input name="Email" th:name="email" type="email" id="contactEmail" placeholder="Email" value="" required />
+	     		    <input name="Password" th:name="password" type="password" id="contactSubject" placeholder="Password"  value="" required />
+	                <p>
+                    Do you already have an account? - <a href="/users/login">Log in</a>
+                    </p>
+					<button class="submitform">Submit</button>
+
+			</form>
+		</div>
+	</body>
