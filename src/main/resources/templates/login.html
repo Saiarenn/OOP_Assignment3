@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <Title>Sign up</title>
+
+    <link rel="stylesheet" href="/css/register.css">
+   
+    <link rel="shortcut icon" href="/favicon.png" >
+
+</head>
+
+<body>
+
+    <div class="row">
+				  
+        <form method="post" action="/users/login">
+            <h1>Log in</h1>
+            <input name="email" type="email" placeholder="Email" value="" minLength="2" required />
+            <input name="password" type="password"  placeholder="Password"  value="" required />
+            <p>
+                Is this your first time here? - <a href="/users/signup">Sign up</a>
+            </p>
+            <button class="submitform">Submit</button>
+        </form>
+    </div>
+
+</body>
+
+<html>
