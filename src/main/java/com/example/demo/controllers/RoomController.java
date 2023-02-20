@@ -34,7 +34,6 @@ public class RoomController {
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
-
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Room> deleteRoom(@PathVariable int id) {
         roomService.deleteById(id);
