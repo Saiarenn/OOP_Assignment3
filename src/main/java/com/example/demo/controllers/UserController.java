@@ -55,7 +55,6 @@ public class UserController {
         return redirectToLogin(model);
     }
 
-
     @PostMapping("/booking")
     public String getBooked(@RequestParam("id") int id, @RequestParam("isbooked") boolean isBooked) {
         Room room = roomService.getById(id);
