@@ -6,10 +6,11 @@ import com.example.demo.services.interfaces.IRoomService;
 import com.example.demo.services.interfaces.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+@RestController
 @RequestMapping("users")
 public class UserController {
 
@@ -22,41 +23,36 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String redirectToLogin() {
-        return "login";
+    public ModelAndView redirectToLogin(ModelMap model) {
+        return new ModelAndView("login", model);
     }
 
     @GetMapping("/signup")
-    public String redirectToSignup() {
-        return "signup";
+    public ModelAndView redirectToSignup(ModelMap model) {
+        return new ModelAndView("signup", model);
     }
 
     @PostMapping("/login")
-    public String logIn(@RequestParam("email") String email,
-                        @RequestParam("password") String password) {
-        //
+    public ModelAndView logIn(@RequestParam("email") String email,
+                              @RequestParam("password") String password, ModelMap model) {
+
         User user = userService.getByEmail(email);
         String currentPassword = user.getPassword();
 
         if (currentPassword.equals(password)) {
-            return "user";
+            return new ModelAndView("user", model);
         }
-        return "redirect:/users/login";
-    }
-
-    @GetMapping("/page")
-    public String page(){
-        return "user";
+        return null;
     }
 
     @PostMapping("/signup")
-    public String signUp(@RequestParam("name") String name,
-                         @RequestParam("email") String email,
-                         @RequestParam("password") String password) {
+    public ModelAndView signUp(@RequestParam("name") String name,
+                               @RequestParam("email") String email,
+                               @RequestParam("password") String password, ModelMap model) {
 
         User user = new User(name, email, password);
         userService.createUser(user);
-        return "redirect:/login";
+        return redirectToLogin(model);
     }
 
 
@@ -69,7 +65,6 @@ public class UserController {
         return "Success";
     }
 
-    @ResponseBody
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable int id) {
         User u = userService.getById(id);

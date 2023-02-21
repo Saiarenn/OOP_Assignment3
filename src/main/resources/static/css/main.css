@@ -94,6 +94,28 @@ ul {
 	list-style: none;
 }
 
+.search {
+	display: flex;
+	background: white;
+	padding: 0;
+	height: 40px;
+	border-radius: 15px;
+	overflow: hidden;
+}
+
+.search input[type="text"]{
+	border: none;
+	height: 40px;
+	background: transparent;
+}
+
+.search input[type="submit"]{
+	border: none;
+	height: 40px;
+	font-size: 16px;
+	border-radius: 15px;
+}
+
 /* Floated image
 --------------------------------------------------------------------- */
 img.pull-right {
