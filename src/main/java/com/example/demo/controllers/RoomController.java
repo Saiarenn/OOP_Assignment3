@@ -34,7 +34,6 @@ public class RoomController {
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
-
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Room> deleteRoom(@PathVariable int id) {
         roomService.deleteById(id);
@@ -48,9 +47,14 @@ public class RoomController {
     }
 
     @GetMapping("by_name/{name}")
-    public ResponseEntity<List<Room>> getProductByName(@PathVariable String name) {
+    public ResponseEntity<List<Room>> getRoomByName(@PathVariable String name) {
         var r = roomService.getByName(name);
 
         return new ResponseEntity<>(r, HttpStatus.OK);
+    }
+
+    @PostMapping("by_name")
+    public ResponseEntity<List<Room>> searchRoomByName(@RequestParam("name") String name) {
+        return getRoomByName(name);
     }
 }

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
 
    <!--- basic page needs
    ================================================== -->
    <meta charset="utf-8">
-	<title>PaintEdition</title>
+	<title>Room Booking Services</title>
 	<meta name="author" content="Saken">
 
  	<!-- CSS
@@ -34,11 +34,14 @@
 	      <nav id="nav-wrap">     
 		  
 	         <ul id="nav" class="nav">
+				 <li>
+					 <form class="search" action="/hotel/by_name" method="post">
+						 <input type="text" name="name" placeholder="Search the rooms..">
+						 <input type="submit" value="Search">
+					 </form>
+				 </li>
 	            <li><a class="scroll" href="#hero">Home</a></li>
 		        <li><a class="scroll" href="#gallery">Gallery</a></li>
-	            <li><a class="scroll" href="#services">Services</a></li>
-	            <li><a class="scroll" href="#about">About</a></li>
-	            <li><a class="scroll" href="#contact">Contact</a></li>
 				<li><span>|</span></li>
 				<li><a class="scroll" href="/users/signup">Sign up</a></li>
 	         </ul> <!-- end #nav -->
@@ -50,49 +53,21 @@
    </header> <!-- end header -->
 
 
-   <!-- homepage hero
-   ================================================== -->
-   <section id="hero">	
-   	  
-		<div class="">
+	<!-- homepage hero
+    ================================================== -->
+	<section id="hero">
 
-			<div class="">
-
-			   <!-- hero start-->
-			   <div id="hero">
-			   
-				   <ul class="">
-					  
-					   <li>
-						   <div>
-								<h1 class="">Say hello to
-								</h1>	
-									
-								<h3 class=""></h3>				   
-							</div>						
-					   </li>
-
-					   <!--row -->
-					   <li>
-						   <div>
-								<h1 class="">Take a look at some of <a class="smoothscroll" href="#gallery" title="gallery" ><u>our works</u></a> or 
-								<a class="smoothscroll" href="#contact" title="contact us"><u>get in touch</u></a> to discuss how we can help you.</h1>
-							</div>
-					   </li>					              
-
-				   </ul>
-
-			   </div> <!-- end hero -->				   
-
-	      </div> <!-- end twelve columns-->
-
-		</div> <!-- end row -->	
+		<h1 class="main-title">Take a look at some of <a class="smoothscroll" href="#gallery" title="gallery"><u>our
+			rooms</u></a> or
+			<a class="smoothscroll" href="#contact" title="contact us"><u>book</u></a>
+			a room here.
+		</h1>
 
 		<div id="more">
-		      <a class="smoothscroll" href="#services">More About Us<i class="fa fa-angle-down"></i></a>
-		</div> 	
+			<a class="smoothscroll" href="#contact">Booking<i class="fa fa-angle-down"></i></a>
+		</div>
 
-   </section> <!-- end homepage hero -->
+	</section> <!-- end homepage hero -->
 
 
 	<!-- gallery
@@ -116,7 +91,7 @@
 
 				<a class="bgrid folio-item" href="/hotel/by_name/Econom">
 					<div class="item-wrap">
-						<img src="/images/portfolio/econom.jpeg">
+						<img src="../images/portfolio/econom.jpeg">
 						<div class="overlay"></div>
 						<div class="portfolio-item-meta">
 							<h5>Econom</h5>
@@ -127,7 +102,7 @@
 
 				<a class="bgrid folio-item" href="/hotel/by_name/Regular">
 					<div class="item-wrap">
-						<img src="/images/portfolio/regular.jpeg">
+						<img src="../images/portfolio/regular.jpeg">
 						<div class="overlay">
 							<div class="portfolio-item-meta">
 								<h5>Regular</h5>
@@ -140,7 +115,7 @@
 
 				<a class="bgrid folio-item" href="/hotel/by_name/Business">
 					<div class="item-wrap">
-						<img src="/images/portfolio/business.jpeg">
+						<img src="../images/portfolio/business.jpeg">
 						<div class="overlay">
 							<div class="portfolio-item-meta">
 								<h5>Business</h5>
@@ -152,7 +127,7 @@
 
 				<a class="bgrid folio-item" href="/hotel/by_name/Lux">
 					<div class="item-wrap">
-						<img src="/images/portfolio/lux.jpeg">
+						<img src="../images/portfolio/lux.jpeg">
 						<div class="overlay">
 							<div class="portfolio-item-meta">
 								<h5>Lux</h5>
