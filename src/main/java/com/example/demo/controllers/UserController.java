@@ -8,13 +8,12 @@ import com.example.demo.services.interfaces.IRoomService;
 import com.example.demo.services.interfaces.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.ModelMap;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 
-@RestController
+@Controller
 @RequestMapping("users")
 public class UserController {
 
@@ -29,36 +28,36 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public ModelAndView redirectToLogin(ModelMap model) {
-        return new ModelAndView("login", model);
+    public String redirectToLogin() {
+        return "login";
     }
 
     @GetMapping("/signup")
-    public ModelAndView redirectToSignup(ModelMap model) {
-        return new ModelAndView("signup", model);
+    public String redirectToSignup() {
+        return "signup";
     }
 
     @PostMapping("/login")
-    public ModelAndView logIn(@RequestParam("email") String email,
-                              @RequestParam("password") String password, ModelMap model) {
+    public String logIn(@RequestParam("email") String email,
+                              @RequestParam("password") String password) {
 
         User user = userService.getByEmail(email);
         String currentPassword = user.getPassword();
 
         if (currentPassword.equals(password)) {
-            return new ModelAndView("user", model);
+            return "user";
         }
         return null;
     }
 
     @PostMapping("/signup")
-    public ModelAndView signUp(@RequestParam("name") String name,
+    public String signUp(@RequestParam("name") String name,
                                @RequestParam("email") String email,
-                               @RequestParam("password") String password, ModelMap model) {
+                               @RequestParam("password") String password) {
 
         User user = new User(name, email, password);
         userService.createUser(user);
-        return redirectToLogin(model);
+        return redirectToLogin();
     }
 
     @PostMapping("/booking")
@@ -70,13 +69,14 @@ public class UserController {
                             @RequestParam("isbooked") boolean isBooked) {
 
         Room room = roomService.getById(id);
-        if (room.isBooked()) return "Room is already booked!";
+        if (room.isBooked()) return "isBooked";
 
         User user = userService.getByEmail(email);
         String currentPassword = user.getPassword();
-        if (!currentPassword.equals(password)) return "Invalid Personal Data";
 
-        if (start.isAfter(end)) return "Invalid Dates";
+        if (!currentPassword.equals(password)) return "Invalid";
+
+        if(start.compareTo(end) > 0) return "Invalid-dates";
 
         room.setBooked(isBooked);
         roomService.create(room);
@@ -84,7 +84,7 @@ public class UserController {
         BookedRoom bookedRoom = new BookedRoom(room.getName(), room.getId(), email, start, end);
         bookedRoomService.create(bookedRoom);
 
-        return "Success";
+        return "success";
     }
 
     @GetMapping("/{id}")
@@ -94,5 +94,63 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(u, HttpStatus.OK);
+    }
+
+    @GetMapping("/cancel")
+    public String redirectToCancel() {
+        return "cancel";
+    }
+
+    @PostMapping ("/cancel")
+    public String cancelBooking(@RequestParam("id") int roomNumber,
+                            @RequestParam("email") String email,
+                            @RequestParam("password") String password) {
+
+        Room room = roomService.getById(roomNumber);
+        if (!room.isBooked()) return "isNotBooked";
+
+        User user = userService.getByEmail(email);
+
+        String currentPassword = user.getPassword();
+        if (!currentPassword.equals(password)) return "Invalid";
+
+        BookedRoom bookedRoom = bookedRoomService.getByRoomNumber(roomNumber);
+        if (!bookedRoom.getEmail().equals(email)) return "notYour";
+
+        room.setBooked(false);
+        roomService.create(room);
+
+        return "redirect:/booked-rooms/delete/" + bookedRoom.getId();
+    }
+
+    @GetMapping("/prolongation")
+    public String redirectToProlongation() {
+        return "prolongation";
+    }
+
+    @PostMapping ("/prolongation")
+    public String cancelBooking(@RequestParam("id") int roomNumber,
+                                @RequestParam("email") String email,
+                                @RequestParam("password") String password,
+                                @RequestParam("end") LocalDate end) {
+
+        Room room = roomService.getById(roomNumber);
+        if (!room.isBooked()) return "isNotBooked";
+
+        User user = userService.getByEmail(email);
+
+        String currentPassword = user.getPassword();
+        if (!currentPassword.equals(password)) return "Invalid";
+
+        BookedRoom bookedRoom = bookedRoomService.getByRoomNumber(roomNumber);
+        if (!bookedRoom.getEmail().equals(email)) return "notYour";
+
+        if(bookedRoom.getDateEnd().compareTo(end) > 0 || bookedRoom.getDateStart().compareTo(end) > 0) return "Invalid-dates";
+
+        bookedRoom.setDateEnd(end);
+
+        bookedRoomService.create(bookedRoom);
+
+        return "success";
     }
 }

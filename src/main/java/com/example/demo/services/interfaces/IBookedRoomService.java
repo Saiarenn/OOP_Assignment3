@@ -9,7 +9,7 @@ public interface IBookedRoomService {
     BookedRoom getByRoomNumber(int roomNumber);
     void create(BookedRoom room);
 
-    void deleteByRoomNumber(int id);
+    void deleteById(int id);
 
     List<BookedRoom> getAll();
     List<BookedRoom> getByRoomName(String roomName);

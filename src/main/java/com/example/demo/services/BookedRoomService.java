@@ -33,8 +33,8 @@ public class BookedRoomService implements IBookedRoomService {
     }
 
     @Override
-    public void deleteByRoomNumber(int id) {
-        bookedRoomRepository.deleteByRoomNumber(id);
+    public void deleteById(int roomNumber) {
+        bookedRoomRepository.deleteById(roomNumber);
     }
 
     @Override

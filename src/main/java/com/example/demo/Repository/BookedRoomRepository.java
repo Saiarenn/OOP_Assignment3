@@ -12,6 +12,4 @@ public interface BookedRoomRepository extends JpaRepository<BookedRoom, Integer>
 
     List<BookedRoom> findByRoomName(String roomName);
     BookedRoom findByRoomNumber(int roomNumber);
-
-    void deleteByRoomNumber(int id);
 }
