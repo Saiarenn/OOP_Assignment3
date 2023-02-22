@@ -14,9 +14,9 @@ public class UserService implements IUserService {
         this.userRepository = userRepository;
     }
     @Override
-    public User createUser(User user) {
-        return userRepository.save(user);
-     }
+    public void createUser(User user) {
+        userRepository.save(user);
+    }
 
     @Override
     public User getByEmail(String email) {

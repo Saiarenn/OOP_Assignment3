@@ -42,9 +42,4 @@ public class RoomService implements IRoomService {
     public List<Room> getByName(String name) {
         return roomRepository.findByName(name);
     }
-
-    @Override
-    public Room update(Room room) {
-        return roomRepository.save(room);
-    }
 }

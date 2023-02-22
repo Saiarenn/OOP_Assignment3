@@ -12,6 +12,4 @@ public interface IRoomService {
 
     List<Room> getAll();
     List<Room> getByName(String name);
-
-    Room update(Room room);
 }

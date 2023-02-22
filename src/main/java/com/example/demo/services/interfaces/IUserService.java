@@ -3,7 +3,7 @@ package com.example.demo.services.interfaces;
 import com.example.demo.Entity.User;
 
 public interface IUserService {
-    User createUser(User u);
+    void createUser(User u);
 
     User getByEmail(String name);
 

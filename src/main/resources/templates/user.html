@@ -43,6 +43,7 @@
 				<li><a class="scroll" href="#hero">Home</a></li>
 				<li><a class="scroll" href="#gallery">Gallery</a></li>
 				<li><a class="scroll" href="#contact">Contact</a></li>
+				<li><a class="scroll" href="/users/cancel">Cancel the Book</a></li>
 				<li><span>|</span></li>
 				<li><a class="scroll" href="/users/signup">User</a></li>
 			</ul> <!-- end #nav -->
@@ -168,7 +169,11 @@
 				<fieldset>
 
 					<div class="group">
-						<input name="id" type="text" placeholder="Room Number" value="" minLength="2" required />
+						<input name="id" type="text" placeholder="Room Number" required />
+						<input name="email" type="text" placeholder="Email" required />
+						<input name="password" type="password" placeholder="Password" required />
+						<input name="start" type="date" placeholder="Starting Date" required />
+						<input name="end" type="date" placeholder="Ending Date" required />
 					</div>
 					<div>
 						<label>Confirm Booking</label>

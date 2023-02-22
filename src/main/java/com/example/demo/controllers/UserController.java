@@ -1,7 +1,9 @@
 package com.example.demo.controllers;
 
+import com.example.demo.Entity.BookedRoom;
 import com.example.demo.Entity.Room;
 import com.example.demo.Entity.User;
+import com.example.demo.services.interfaces.IBookedRoomService;
 import com.example.demo.services.interfaces.IRoomService;
 import com.example.demo.services.interfaces.IUserService;
 import org.springframework.http.HttpStatus;
@@ -10,16 +12,20 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("users")
 public class UserController {
 
     private  final IUserService userService;
     private  final IRoomService roomService;
+    private  final IBookedRoomService bookedRoomService;
 
-    public UserController(IUserService personService, IRoomService roomService) {
-        this.userService = personService;
+    public UserController(IUserService userService, IRoomService roomService, IBookedRoomService bookedRoomService) {
+        this.userService = userService;
         this.roomService = roomService;
+        this.bookedRoomService = bookedRoomService;
     }
 
     @GetMapping("/login")
@@ -56,11 +62,28 @@ public class UserController {
     }
 
     @PostMapping("/booking")
-    public String getBooked(@RequestParam("id") int id, @RequestParam("isbooked") boolean isBooked) {
+    public String getBooked(@RequestParam("id") int id,
+                            @RequestParam("email") String email,
+                            @RequestParam("password") String password,
+                            @RequestParam("start") LocalDate start,
+                            @RequestParam("end") LocalDate end,
+                            @RequestParam("isbooked") boolean isBooked) {
+
         Room room = roomService.getById(id);
         if (room.isBooked()) return "Room is already booked!";
+
+        User user = userService.getByEmail(email);
+        String currentPassword = user.getPassword();
+        if (!currentPassword.equals(password)) return "Invalid Personal Data";
+
+        if (start.isAfter(end)) return "Invalid Dates";
+
         room.setBooked(isBooked);
-        roomService.update(room);
+        roomService.create(room);
+
+        BookedRoom bookedRoom = new BookedRoom(room.getName(), room.getId(), email, start, end);
+        bookedRoomService.create(bookedRoom);
+
         return "Success";
     }
 
