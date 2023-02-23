@@ -119,8 +119,9 @@ public class UserController {
 
         room.setBooked(false);
         roomService.create(room);
+        bookedRoomService.deleteById(bookedRoom.getId());
 
-        return "redirect:/booked-rooms/delete/" + bookedRoom.getId();
+        return "success";
     }
 
     @GetMapping("/prolongation")

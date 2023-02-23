@@ -17,9 +17,9 @@ public class BookedRoomController {
         this.bookedRoomService = bookedRoomService;
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Room> deleteBookedRoom(@PathVariable int id) {
-        bookedRoomService.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+//    @GetMapping ("/delete/{id}")
+//    public ResponseEntity<Room> deleteBookedRoom(@PathVariable int id) {
+//        bookedRoomService.deleteById(id);
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 }
